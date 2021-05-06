@@ -1,6 +1,6 @@
 # convolucion.py
 # Kevin Joan Delgado Pérez A01706328
-# Versión 1
+# Versión 2: Usadas nuevas coordenadas (output_x,output_y) para delimitar mejor las casillas de salida
 # Herramientas computacionales: El arte de la programación
 
 import numpy as np
@@ -20,13 +20,19 @@ def suma_matrices(matriz,kernel):
 def convolucion(imagen,kernel):
     """Aplica una convolucion sin padding (válida) con una dimension y para devolver una resultante"""
 
-    imagen_row, imagen_col = imagen.shape #asignar el alto y ancho de la imagen 
+    imagen_row, imagen_col = imagen.shape #asignar el alto y ancho de la imagen
     kernel_row, kernel_col = kernel.shape #asignar el alto y ancho del filtro
+    
+    output_x = (imagen_col - (kernel_col / 2) * 2) + 1 #asigna el ancho del output
+    output_y = (imagen_row - (kernel_row / 2) * 2) + 1 #asigna el alto del output
+    
+    output_x_int = int (output_x) #cambiar los valores a enteros
+    output_y_int = int (output_y) #cambiar los valores a enteros
    
-    salida = np.zeros(imagen.shape) #matriz donde se guardan las resultantes de las coordenadas
+    salida = np.zeros([output_y_int, output_x_int]) #matriz donde se guardan las resultantes de las coordenadas
    
-    for row in range(imagen_row): #recorrer las filas de la imagen
-        for col in range(imagen_col): #recorrer las columnas de la imagen
+    for row in range(output_y_int): #recorrer las filas de la imagen
+        for col in range(output_x_int): #recorrer las columnas de la imagen
                 salida[row,col] = suma_matrices( 
                                     imagen[row:row + kernel_row, 
                                     col:col + kernel_col],kernel) #relizar la suma entre las filas de la matriz con la del kernel y lo mismo con las columnas
