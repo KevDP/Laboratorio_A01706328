@@ -5,7 +5,7 @@
 
 import numpy as np
 
-def pad(imagen, psize):
+def padding(imagen, psize):
 
     imagen_row, imagen_col = imagen.shape #asignar el alto y ancho de la imagen
 
@@ -27,4 +27,4 @@ if __name__ == '__main__':
                      [100,90,80,70,0,99]])
     
     psize = 1
-    pad(imagen, psize)
+    padding(imagen, psize)
